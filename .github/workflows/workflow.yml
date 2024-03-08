@@ -13,10 +13,10 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '19'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install, npm install @nomicfoundation/edr-linux-x64-gnu
 
     - name: Generate code coverage
       run: npx hardhat coverage
