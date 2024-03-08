@@ -9,15 +9,12 @@ v16.15.0
 
 1. Create `.env` file with these keys
 ```shell
-INFURA_API_KEY=     # Infura api key
-BSCSCAN_API_KEY=    # BSC Scan api key
-PRI_KEY1=           # Private Key of your metamask
+MNEMONIC=
+ETHERSCAN_API_KEY=
+BSCSCAN_API_KEY=
 
-# Staking Rewards (BSC testnet)
-STAKED_TOKEN=       # Staked Token Address
-REWARD_TOKEN=       # Reward Token Address
-REWARDS_VAULT=      # Reward Vault Address
-OPERATOR=           # Operator Address
+TRANSFER_TOKEN=
+OPERATOR=
 ```
 
 2. Clean Cache & Install npm packages

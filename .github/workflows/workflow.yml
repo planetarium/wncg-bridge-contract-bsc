@@ -16,7 +16,10 @@ jobs:
         node-version: '19'
 
     - name: Install dependencies
-      run: npm install, npm install @nomicfoundation/edr-linux-x64-gnu
+      run: npm install
+
+    - name: Install dependencies2
+      run: npm install @nomicfoundation/edr-linux-x64-gnu
 
     - name: Generate code coverage
       run: npx hardhat coverage
