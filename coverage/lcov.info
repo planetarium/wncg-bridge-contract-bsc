@@ -6,7 +6,7 @@ FN:51,changeOperator
 FN:61,sendToLibPlanet
 FN:78,transferAssetByOperator
 FN:91,totalTransferAmount
-FN:98,transferredTokenBalance
+FN:99,transferredTokenBalance
 FNF:7
 FNH:7
 FNDA:10,initialize
@@ -35,7 +35,7 @@ DA:83,1
 DA:84,1
 DA:85,1
 DA:92,2
-DA:99,1
+DA:100,1
 LF:20
 LH:20
 BRDA:35,1,0,10

@@ -16,7 +16,7 @@ contract BridgeBSC is Initializable {
 
   IERC20Upgradeable public TRANSFER_TOKEN;
 
-  uint private totalSupply;
+  uint private TotalTokenAmount;
 
   address public OPERATOR;
 
@@ -25,8 +25,8 @@ contract BridgeBSC is Initializable {
 
   /* ========== EVENTS ========== */
   event OperatorChanged(address indexed _from, address indexed _to);
-  event SendToLibPlanet(address indexed _user, uint256 _amount, bytes32 _to);
-  event TransferAssetByOperator(address indexed _to, uint256 _amount);
+  event SentToLibPlanet(address indexed _user, uint256 _amount, bytes32 _to);
+  event TransferredAssetByOperator(address indexed _to, uint256 _amount);
 
   /* ========== INITIALIZE ========== */
   function initialize(
@@ -62,12 +62,12 @@ contract BridgeBSC is Initializable {
     require(amount != 0, 'INVALID_ZERO_AMOUNT');
     require(amount % 1e16 == 0, 'INVALID_AMOUNT');
 
-    totalSupply += amount;
+    TotalTokenAmount += amount;
     balances[msg.sender] += amount;
 
     // transfer transfer_token to this contract
     IERC20Upgradeable(TRANSFER_TOKEN).safeTransferFrom(msg.sender, address(this), amount);
-    emit SendToLibPlanet(msg.sender, amount, to);
+    emit SentToLibPlanet(msg.sender, amount, to);
   }
 
   /**
@@ -78,22 +78,23 @@ contract BridgeBSC is Initializable {
   function transferAssetByOperator(uint256 amount, address to) external onlyOperator {
     require(to != address(0), "INVALID_ADDRESS");
     require(amount > 0, "INVALID_AMOUNT");
-    require(amount <= totalSupply, "INSUFFICIENT_BALANCE");
+    require(amount <= TotalTokenAmount, "INSUFFICIENT_BALANCE");
 
-    totalSupply -= amount;
+    TotalTokenAmount -= amount;
     TRANSFER_TOKEN.safeTransfer(to, amount);
-    emit TransferAssetByOperator(to, amount);
+    emit TransferredAssetByOperator(to, amount);
   }
 
   /**
- * @dev Return total amount for this contact
+   * @dev Return total token amount for this contact
    */
   function totalTransferAmount() external view returns (uint256) {
-    return totalSupply;
+    return TotalTokenAmount;
   }
 
   /**
- * @dev Return user's transferred amount
+   * @dev Return user's transferred amount
+   * @param _user address to check transferred balance
    */
   function transferredTokenBalance(address _user) external view returns (uint256) {
     return balances[_user];
