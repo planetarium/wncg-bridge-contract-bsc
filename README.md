@@ -1,10 +1,10 @@
-[![codecov](https://codecov.io/gh/planetarium/staking_contract_wncg_bsc/graph/badge.svg?token=2jZGFyR47E)](https://codecov.io/gh/planetarium/staking_contract_wncg_bsc)
+[![codecov](https://codecov.io/gh/planetarium/wncg-bridge-contract-bsc/graph/badge.svg?token=2jZGFyR47E)](https://codecov.io/gh/planetarium/wncg-bridge-contract-bsc)
 
 How to setup dev environment
 
 ```
 $ node --version
-v16.15.0
+v20.4.0
 ```
 
 1. Create `.env` file with these keys
