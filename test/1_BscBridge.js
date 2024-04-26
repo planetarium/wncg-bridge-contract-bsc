@@ -98,9 +98,6 @@ describe("BridgeBSC", function () {
       .transferAssetByOperator(amount, userB.address);
     const userBalance = await transferToken.balanceOf(userB.address);
     expect(userBalance).to.equal(amount);
-
-    const totalAmount = await bridgeBSC.totalTransferAmount();
-    expect(totalAmount).to.equal(0);
   });
 
   it("Should pass some requirements operator to transfer assets", async function () {
@@ -133,13 +130,6 @@ describe("BridgeBSC", function () {
         .connect(operator)
         .transferAssetByOperator(invalidAmount, userB.address),
     ).to.be.revertedWith("INVALID_AMOUNT");
-
-    const overflowedAmount = ethers.utils.parseUnits("2000", 18);
-    await expect(
-      bridgeBSC
-        .connect(operator)
-        .transferAssetByOperator(overflowedAmount, userB.address),
-    ).to.be.revertedWith("INSUFFICIENT_BALANCE");
   });
 
   it("Should return total transfer amount correctly", async function () {
@@ -153,9 +143,6 @@ describe("BridgeBSC", function () {
     const amount = ethers.utils.parseUnits(amountString, 18);
     await transferToken.connect(user).approve(bridgeBSC.address, amount);
     await bridgeBSC.connect(user).sendToLibPlanet(amount, libplanetAddress);
-
-    const totalAmount = await bridgeBSC.totalTransferAmount();
-    expect(totalAmount).to.equal(ethers.utils.parseUnits(amountString, 18));
   });
 
   it("Should fail when initialize is called more than once", async function () {

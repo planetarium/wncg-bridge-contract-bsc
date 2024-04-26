@@ -62,7 +62,6 @@ contract BridgeBSC is Initializable {
     require(amount != 0, 'INVALID_ZERO_AMOUNT');
     require(amount % 1e16 == 0, 'INVALID_AMOUNT');
 
-    TotalTokenAmount += amount;
     balances[msg.sender] += amount;
 
     // transfer transfer_token to this contract
@@ -78,18 +77,9 @@ contract BridgeBSC is Initializable {
   function transferAssetByOperator(uint256 amount, address to) external onlyOperator {
     require(to != address(0), "INVALID_ADDRESS");
     require(amount > 0, "INVALID_AMOUNT");
-    require(amount <= TotalTokenAmount, "INSUFFICIENT_BALANCE");
 
-    TotalTokenAmount -= amount;
     TRANSFER_TOKEN.safeTransfer(to, amount);
     emit TransferredAssetByOperator(to, amount);
-  }
-
-  /**
-   * @dev Return total token amount for this contact
-   */
-  function totalTransferAmount() external view returns (uint256) {
-    return TotalTokenAmount;
   }
 
   /**
