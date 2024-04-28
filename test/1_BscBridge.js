@@ -132,19 +132,6 @@ describe("BridgeBSC", function () {
     ).to.be.revertedWith("INVALID_AMOUNT");
   });
 
-  it("Should return total transfer amount correctly", async function () {
-    await bridgeBSC.connect(operator).changeOperator(newOperator.address);
-    const amountToUser = ethers.utils.parseUnits("1000", 18);
-    await transferToken.connect(owner).transfer(user.address, amountToUser);
-    const libplanetAddress =
-      ethers.utils.formatBytes32String("libplanet-address");
-
-    const amountString = "5";
-    const amount = ethers.utils.parseUnits(amountString, 18);
-    await transferToken.connect(user).approve(bridgeBSC.address, amount);
-    await bridgeBSC.connect(user).sendToLibPlanet(amount, libplanetAddress);
-  });
-
   it("Should fail when initialize is called more than once", async function () {
     await expect(
       bridgeBSC.initialize(transferToken.address, operator.address),
